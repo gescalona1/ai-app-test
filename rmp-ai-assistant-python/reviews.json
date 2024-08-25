@@ -1,0 +1,70 @@
+{
+    "reviews": [
+      {
+        "professor": "Prof1",
+        "review": "Great professor! Explains complex mathematical concepts clearly and is always willing to help during office hours. Highly recommended for anyone struggling with calculus.",
+        "subject": "Math",
+        "stars": 5
+      },
+      {
+        "professor": "Dr. Smith",
+        "review": "Dr. Smith's lectures are engaging and thought-provoking. He brings historical context to literature, making classics feel relevant to modern times. Assignments can be challenging but rewarding.",
+        "subject": "English Literature",
+        "stars": 4
+      },
+      {
+        "professor": "Professor Johnson",
+        "review": "Tough but fair. Professor Johnson's organic chemistry class is not for the faint of heart, but if you put in the work, you'll learn a ton. His exam questions really make you think.",
+        "subject": "Chemistry",
+        "stars": 4
+      },
+      {
+        "professor": "Dr. Garcia",
+        "review": "Brilliant researcher, but not the best teacher. Lectures can be confusing and she often seems unprepared. However, her insights during lab sessions are invaluable.",
+        "subject": "Physics",
+        "stars": 3
+      },
+      {
+        "professor": "Professor Lee",
+        "review": "Amazing professor! Makes economics interesting with real-world examples and interactive class discussions. Her passion for the subject is contagious.",
+        "subject": "Economics",
+        "stars": 5
+      },
+      {
+        "professor": "Dr. Patel",
+        "review": "Dr. Patel is knowledgeable but his teaching style is very dry. Expect lots of memorization and little practical application. Exams are straightforward if you study the slides.",
+        "subject": "Biology",
+        "stars": 2
+      },
+      {
+        "professor": "Professor Wilson",
+        "review": "Inspiring art history classes! Professor Wilson's enthusiasm brings ancient artworks to life. Field trips to museums were a highlight. Grading can be subjective though.",
+        "subject": "Art History",
+        "stars": 4
+      },
+      {
+        "professor": "Dr. Brown",
+        "review": "Challenging but rewarding course. Dr. Brown pushes students to think critically about psychological theories. Heavy workload, but you'll come out with a deep understanding of the field.",
+        "subject": "Psychology",
+        "stars": 4
+      },
+      {
+        "professor": "Professor Taylor",
+        "review": "Avoid if possible. Professor Taylor seems disinterested in teaching and often cancels classes last minute. Assignments are unclear and grading feels arbitrary.",
+        "subject": "Sociology",
+        "stars": 1
+      },
+      {
+        "professor": "Dr. Nguyen",
+        "review": "Dr. Nguyen is a coding wizard! His algorithms class is tough but he's always available to help. Projects are practical and great for building your portfolio. Highly recommend for CS majors.",
+        "subject": "Computer Science",
+        "stars": 5
+      },
+      {
+        "professor": "Professor Martinez",
+        "review": "Professor Martinez brings history to life with her storytelling approach. Exams focus on understanding rather than memorization. Her passion for the subject is evident in every lecture.",
+        "subject": "History",
+        "stars": 5
+      }
+    ]
+  }
