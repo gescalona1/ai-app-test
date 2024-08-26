@@ -4,20 +4,19 @@ from pinecone import Pinecone, ServerlessSpec
 from open.text.embeddings.openai import OpenAIEmbeddings
 import os
 import json
+from sentence_transformers import SentenceTransformer
 
+model = SentenceTransformer("BAAI/bge-small-en-v1.5")
 
 # Load the review data
 data = json.load(open("reviews.json"))
 
 processed_data = []
-embeddings = OpenAIEmbeddings(
-    openai_api_base='https://limcheekin-bge-small-en-v1-5.hf.space/v1',
-    openai_api_key='Your HuggingFace Token' # this actually doens't do anything
-)
-
+reviews = [review['review'] for review in data["reviews"]]
+embedding_list = model.encode(reviews)
 # Create embeddings for each review
-for review in data["reviews"]:
-    embedding = embeddings.embed_query(review['review'])
+for i, review in enumerate(data["reviews"]):
+    embedding = embedding_list[i].tolist()
     processed_data.append(
         {
             "values": embedding,
@@ -29,7 +28,7 @@ for review in data["reviews"]:
             }
         }
     )
-
+print(processed_data)
 # Initialize Pinecone
 pc = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
 
@@ -40,6 +39,7 @@ pc.create_index(
     metric="cosine",
     spec=ServerlessSpec(cloud="aws", region="us-east-1"),
 )
+
 
 # Insert the embeddings into the Pinecone index
 index = pc.Index("rag")
