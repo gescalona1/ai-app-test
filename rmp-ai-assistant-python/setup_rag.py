@@ -1,33 +1,23 @@
 from dotenv import load_dotenv
 load_dotenv()
 from pinecone import Pinecone, ServerlessSpec
-from openai import OpenAI
+from open.text.embeddings.openai import OpenAIEmbeddings
 import os
 import json
 
-# Initialize Pinecone
-pc = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
-
-# Create a Pinecone index
-pc.create_index(
-    name="rag",
-    dimension=1536,
-    metric="cosine",
-    spec=ServerlessSpec(cloud="aws", region="us-east-1"),
-)
 
 # Load the review data
 data = json.load(open("reviews.json"))
 
 processed_data = []
-client = OpenAI()
+embeddings = OpenAIEmbeddings(
+    openai_api_base='https://limcheekin-bge-small-en-v1-5.hf.space/v1',
+    openai_api_key='Your HuggingFace Token' # this actually doens't do anything
+)
 
 # Create embeddings for each review
 for review in data["reviews"]:
-    response = client.embeddings.create(
-        input=review['review'], model="text-embedding-3-small"
-    )
-    embedding = response.data[0].embedding
+    embedding = embeddings.embed_query(review['review'])
     processed_data.append(
         {
             "values": embedding,
@@ -39,6 +29,17 @@ for review in data["reviews"]:
             }
         }
     )
+
+# Initialize Pinecone
+pc = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
+
+# Create a Pinecone index
+pc.create_index(
+    name="rag",
+    dimension=len(embedding),
+    metric="cosine",
+    spec=ServerlessSpec(cloud="aws", region="us-east-1"),
+)
 
 # Insert the embeddings into the Pinecone index
 index = pc.Index("rag")
