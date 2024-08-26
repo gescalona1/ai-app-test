@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { Pinecone } from '@pinecone-database/pinecone'
 import OpenAI from 'openai'
-import { getEmbedding } from '@/util/embeddings';
+import PipelineSingleton from '@/app/api/chat/pipeline.tsx';
 
 const systemPrompt = `
 You are a rate my professor agent to help students find classes, that takes in user questions and answers them.
@@ -19,8 +19,11 @@ export const POST = async (req: Request) => {
         apiKey: process.env.OPENROUTER_API_KEY ?? '',
       })
 
-    const text = data[data.length - 1].content;
-    const embedding = await getEmbedding(text);
+    const text = [data[data.length - 1].content];
+    const extractor = await PipelineSingleton.getInstance();
+    const result = await extractor(text, { pooling: 'mean', normalize: true });
+    const embedding = result.tolist();
+    
 
     const results = await index.query({
         topK: 5,
