@@ -14,7 +14,10 @@ export const POST = async (req: Request) => {
         apiKey: process.env.PINECONE_API_KEY ?? '',
     });
     const index = pc.index('rag').namespace('ns1');
-    const openai = new OpenAI();
+    const openai = new OpenAI({
+        baseURL: "https://openrouter.ai/api/v1",
+        apiKey: process.env.OPENROUTER_API_KEY ?? '',
+      })
 
     const text = data[data.length - 1].content;
     const embedding = await getEmbedding(text);
@@ -43,7 +46,7 @@ export const POST = async (req: Request) => {
             ...lastDataWithoutLastMessage,
             {role: 'user', content: lastMessageContent},
         ],
-        model: 'gpt-3.5-turbo',
+        model: 'meta-llama/llama-3.1-8b-instruct:free',
         stream: true,
     });
 
